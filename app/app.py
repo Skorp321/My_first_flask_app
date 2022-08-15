@@ -17,11 +17,11 @@ def hello_world():
         return render_template('index.html', href='static/static.svg')
     else:
         text = request.form['text']
-        train_data_file = "AgesAndHeights.pkl"
-        output_file = 'static/pred_file.svg'
-        model = load('model.joblib')
+        train_data_file = "app/AgesAndHeights.pkl"
+        output_file = 'app/static/pred_file.svg'
+        model = load('app/model.joblib')
         make_picture(train_data_file, model, floats_string_to_input_arr(text), output_file)
-        return render_template('index.html', href=output_file)
+        return render_template('index.html', href=output_file[4:])
     
 
 def make_picture(train_data_file, model, new_points, output_file):
