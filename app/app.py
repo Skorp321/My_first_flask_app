@@ -11,6 +11,7 @@ pio.kaleido.scope.chromium_args = tuple([arg for arg in pio.kaleido.scope.chromi
 
 app = Flask(__name__)
 
+#создадим начальную страницу с данными и формой для ввода возраста
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
     request_type_str = request.method
@@ -25,7 +26,7 @@ def hello_world():
         make_picture(train_data_file, model, floats_string_to_input_arr(text), output_file)
         return render_template('index.html', href=output_file[4:])
     
-
+#функция для создания картинки с предсказаниями
 def make_picture(train_data_file, model, new_points, output_file):
     
     x_new = np.linspace(0, 18, 10)
@@ -47,7 +48,7 @@ def make_picture(train_data_file, model, new_points, output_file):
                         
     fig.write_image(output_file, width=800, engine="kaleido")                    
     fig.show()
-
+#проверяем корректность введенных данных
 def floats_string_to_input_arr(floats_str):
     def is_float(s):
         try:
