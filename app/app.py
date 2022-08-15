@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 from joblib import load
 import numpy as np
 import pandas as pd
+import uuid
 
 import plotly.io as pio
 pio.kaleido.scope.chromium_args = tuple([arg for arg in pio.kaleido.scope.chromium_args if arg != "--disable-dev-shm-usage"])
@@ -17,8 +18,9 @@ def hello_world():
         return render_template('index.html', href='static/static.svg')
     else:
         text = request.form['text']
+        random_string = uuid.uuid4().hex
         train_data_file = "app/AgesAndHeights.pkl"
-        output_file = 'app/static/pred_file.svg'
+        output_file = 'app/static/' + random_string +'.svg'
         model = load('app/model.joblib')
         make_picture(train_data_file, model, floats_string_to_input_arr(text), output_file)
         return render_template('index.html', href=output_file[4:])
